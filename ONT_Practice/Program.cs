@@ -116,10 +116,11 @@ public class Vehicle
         Console.WriteLine("BRIEF");
         Console.WriteLine("---------------------------------------------------------------------");
         // Generate description including all features
-        string description = $"{VehicleCapabilities.GetType().Name} with {CarrierCapability.Carry()} capability, {Engine.Power()} engine, {TowingCapability.Tow()} towing";
-       
+        string description = $"{GetType().Name} with {CarrierCapability.Carry()} capability, {Engine.Power()} engine, {TowingCapability.Tow()} towing";
+
         return description;
     }
+
 
     // Notify technicians about changes
     private void NotifyTechnicians(string message)
@@ -226,7 +227,7 @@ public class FivePeopleMaxFewLuggage : Carrier
 {
     public override string Carry()
     {
-        return  "5 people max and few luggage";
+        return "5 people max and few luggage";
     }
 }
 
@@ -449,34 +450,40 @@ public class SixtyFivePeopleMax : Carrier
     {
         static void Main(string[] args)
         {
+
+
             IVehicleTypeStrategy vehicleTypeStrategy = null;
             ICarrierStrategy carrierStrategy = null;
             IEngineStrategy engineStrategy = null;
             ITowingStrategy towingStrategy = null;
-
-            // Prompt user to choose vehicle type
-            Console.WriteLine("Choose a vehicle type:");
-            Console.WriteLine("1. Motorbike");
-            Console.WriteLine("2. Lightweight Vehicle");
-            Console.WriteLine("3. Heavy Vehicle");
-            Console.Write("Enter your choice (1/2/3): ");
-            string choice = Console.ReadLine();
-
-            // Set the vehicle type strategy based on user's choice
-            switch (choice)
+            while (true)
             {
-                case "1":
-                    vehicleTypeStrategy = new MotorbikeStrategy();
-                    break;
-                case "2":
-                    vehicleTypeStrategy = new LightweightVehicleStrategy();
-                    break;
-                case "3":
-                    vehicleTypeStrategy = new HeavyVehicleStrategy();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Exiting program.");
-                    return;
+                // Prompt user to choose vehicle type
+                Console.WriteLine("Choose a vehicle type:");
+                Console.WriteLine("1. Motorbike");
+                Console.WriteLine("2. Lightweight Vehicle");
+                Console.WriteLine("3. Heavy Vehicle");
+                Console.Write("Enter your choice (1/2/3):\n ");
+                Console.Write("------------------------------------ \n");
+                string choice = Console.ReadLine();
+
+                // Set the vehicle type strategy based on user's choice
+                switch (choice)
+                {
+                    case "1":
+                        vehicleTypeStrategy = new MotorbikeStrategy();
+                        break;
+                    case "2":
+                        vehicleTypeStrategy = new LightweightVehicleStrategy();
+                        break;
+                    case "3":
+                        vehicleTypeStrategy = new HeavyVehicleStrategy();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        continue; // Restart the loop to ask the question again
+                }
+                break; // Break out of the loop if a valid choice is made
             }
 
             // Create a vehicle
@@ -485,94 +492,108 @@ public class SixtyFivePeopleMax : Carrier
             // Set vehicle capabilities using the selected vehicle type strategy
             vehicleTypeStrategy.SetVehicleCapabilities(vehicle);
 
-            // Prompt user to choose carrier capability
-            Console.WriteLine("\nChoose a carrier capability:");
-            Console.WriteLine("1. Good and Driver");
-            Console.WriteLine("2. 2 People Max ,and Bag");
-            Console.WriteLine("3. 5 people max and few luggage");
-            Console.WriteLine("4. 2 People Max ,and Bag");
-            Console.WriteLine("5. 65 people max");
-
-            Console.Write("Enter your choice (1/2/3/4/5: ");
-            string carrierChoice = Console.ReadLine();
-
-            // Set the carrier strategy based on user's choice
-            switch (carrierChoice)
+            while (true)
             {
-                case "1":
-                    carrierStrategy = new GoodAndDriverStrategy();
-                    break;
-                case "2":
-                    carrierStrategy = new TwoPeopleMaxAndBagStrategy();
-                    break;
-                case "3":
-                    carrierStrategy = new FivePeopleMaxFewLuggageStrategy();
-                    break;
-                case "4":
-                    carrierStrategy = new TwentyPeopleMaxStrategy();
-                    break;
-                case "5":
-                    carrierStrategy = new SixtyFivePeopleMaxStrategy();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice for carrier capability.");
-                    return;
+                // Prompt user to choose carrier capability
+                Console.WriteLine("\nChoose a carrier capability:");
+                Console.WriteLine("1. Good and Driver");
+                Console.WriteLine("2. 2 People Max ,and Bag");
+                Console.WriteLine("3. 5 people max and few luggage");
+                Console.WriteLine("4. 2 People Max ,and Bag");
+                Console.WriteLine("5. 65 people max");
+
+                Console.Write("Enter your choice (1/2/3/4/5: \n");
+                Console.Write("------------------------------------\n");
+                string carrierChoice = Console.ReadLine();
+
+                // Set the carrier strategy based on user's choice
+                switch (carrierChoice)
+                {
+                    case "1":
+                        carrierStrategy = new GoodAndDriverStrategy();
+                        break;
+                    case "2":
+                        carrierStrategy = new TwoPeopleMaxAndBagStrategy();
+                        break;
+                    case "3":
+                        carrierStrategy = new FivePeopleMaxFewLuggageStrategy();
+                        break;
+                    case "4":
+                        carrierStrategy = new TwentyPeopleMaxStrategy();
+                        break;
+                    case "5":
+                        carrierStrategy = new SixtyFivePeopleMaxStrategy();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        continue; // Restart the loop to ask the question again
+                }
+                break; // Break out of the loop if a valid choice is made
             }
 
             // Set carrier capability using the selected strategy
             vehicle.CarrierCapability = carrierStrategy.SetCarrierCapability();
-
-            // Prompt user to choose engine size
-            Console.WriteLine("\nChoose an engine size:");
-            Console.WriteLine("1. Small");
-            Console.WriteLine("2. Medium");
-            Console.WriteLine("3. Large");
-            Console.WriteLine("4. Extra Large");
-            Console.Write("Enter your choice (1/2/3/4): ");
-            string engineChoice = Console.ReadLine();
-
-            // Set the engine strategy based on user's choice
-            switch (engineChoice)
+            while (true)
             {
-                case "1":
-                    engineStrategy = new SmallEngineStrategy();
-                    break;
-                case "2":
-                    engineStrategy = new MediumEngineStrategy();
-                    break;
-                case "3":
-                    engineStrategy = new LargeEngineStrategy();
-                    break;
-                case "4":
-                    engineStrategy = new ExtraLargeEngineStrategy();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice for engine size.");
-                    return;
+
+                // Prompt user to choose engine size
+                Console.WriteLine("\nChoose an engine size:");
+                Console.WriteLine("1. Small");
+                Console.WriteLine("2. Medium");
+                Console.WriteLine("3. Large");
+                Console.WriteLine("4. Extra Large");
+                Console.Write("Enter your choice (1/2/3/4): \n");
+                Console.Write("------------------------------------ \n");
+                string engineChoice = Console.ReadLine();
+
+                // Set the engine strategy based on user's choice
+                switch (engineChoice)
+                {
+                    case "1":
+                        engineStrategy = new SmallEngineStrategy();
+                        break;
+                    case "2":
+                        engineStrategy = new MediumEngineStrategy();
+                        break;
+                    case "3":
+                        engineStrategy = new LargeEngineStrategy();
+                        break;
+                    case "4":
+                        engineStrategy = new ExtraLargeEngineStrategy();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        continue; // Restart the loop to ask the question again
+                }
+                break; // Break out of the loop if a valid choice is made
             }
 
             // Set engine size using the selected strategy
             vehicle.Engine = engineStrategy.SetEngineSize();
-
-            // Prompt user to choose towing capability
-            Console.WriteLine("\nChoose a towing capability:");
-            Console.WriteLine("1. Can Tow");
-            Console.WriteLine("2. Cannot Tow");
-            Console.Write("Enter your choice (1/2): ");
-            string towingChoice = Console.ReadLine();
-
-            // Set the towing strategy based on user's choice
-            switch (towingChoice)
+            while (true)
             {
-                case "1":
-                    towingStrategy = new CanTowStrategy();
-                    break;
-                case "2":
-                    towingStrategy = new CannotTowStrategy();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice for towing capability.");
-                    return;
+                // Prompt user to choose towing capability
+                Console.WriteLine("\nChoose a towing capability:");
+                Console.WriteLine("1. Can Tow");
+                Console.WriteLine("2. Cannot Tow");
+                Console.Write("Enter your choice (1/2): \n");
+                Console.Write("------------------------------------ \n");
+                string towingChoice = Console.ReadLine();
+
+                // Set the towing strategy based on user's choice
+                switch (towingChoice)
+                {
+                    case "1":
+                        towingStrategy = new CanTowStrategy();
+                        break;
+                    case "2":
+                        towingStrategy = new CannotTowStrategy();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        continue; // Restart the loop to ask the question again
+                }
+                break; // Break out of the loop if a valid choice is made
             }
 
             // Set towing capability using the selected strategy
