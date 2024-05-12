@@ -109,16 +109,43 @@ public class Vehicle
         NotifyTechnicians($"Feature '{feature.Description()}' added to the vehicle.");
     }
 
-    // Get the description of the vehicle
     public string GetDescription()
     {
         Console.WriteLine("---------------------------------------------------------------------");
         Console.WriteLine("BRIEF");
         Console.WriteLine("---------------------------------------------------------------------");
+
         // Generate description including all features
         string description = $"{GetType().Name} with {CarrierCapability.Carry()} capability, {Engine.Power()} engine, {TowingCapability.Tow()} towing";
 
+        // Display the description
+        Console.WriteLine(description);
+
+        // Ask the decorator question
+        string decoratorQuestion = DecoratorQuestion();
+        Console.WriteLine(decoratorQuestion);
+
+        // Get user input
+        bool userInput = GetUserInput();
+
         return description;
+    }
+    public string DecoratorQuestion()
+    {
+        Console.WriteLine("------------------------------------------------------------------------");
+        string decoratorQuestion = $"Would you like to add additions to {GetType().Name} ,Yes or No? ";
+
+        return decoratorQuestion;
+    }
+    public bool GetUserInput()
+    {
+        string userInput = Console.ReadLine()?.ToLower();
+        while (userInput != "yes" && userInput != "no")
+        {
+            Console.WriteLine("Please enter 'yes' or 'no'.");
+            userInput = Console.ReadLine()?.ToLower();
+        }
+        return userInput == "yes";
     }
 
 
@@ -608,7 +635,11 @@ public class SixtyFivePeopleMax : Carrier
 
             // Get the description of the vehicle
             string description = vehicle.GetDescription();
-            Console.WriteLine(description);
+            //Console.WriteLine(description);
+
+
+          
+            
         }
     }
 }
