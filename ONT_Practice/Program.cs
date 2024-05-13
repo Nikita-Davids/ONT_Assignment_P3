@@ -134,7 +134,7 @@ public class Vehicle
         Console.WriteLine(decoratorQuestion);
 
         // Get user input
-        bool userInput = GetUserInput();
+       bool  userInput = GetUserInput();
 
         return description;
     }
@@ -148,15 +148,50 @@ public class Vehicle
     public bool GetUserInput()
     {
         string userInput = Console.ReadLine()?.ToLower();
+
         while (userInput != "yes" && userInput != "no")
         {
             Console.WriteLine("Please enter 'yes' or 'no'.");
             userInput = Console.ReadLine()?.ToLower();
         }
-        return userInput == "yes";
+        if (userInput == "yes")
+        {
+            if (VehicleName.Name() == "MotorBike")
+            {
+                Console.WriteLine("Options for MotorBike:");
+                Console.WriteLine("1.Adding Sound System: R1000");
+                Console.WriteLine("• Adding Wi-Fi: R750");
+                Console.WriteLine("• Adding Camera: R200");
+            }
+            else if (VehicleName.Name() == "Light Motor Vehicle")
+            {
+                Console.WriteLine("Options for Light Motor Vehicle:");
+                Console.WriteLine("• Adding Sound System: R1200 ");
+                Console.WriteLine("• Adding Wi-Fi: R950");
+                Console.WriteLine("• Adding Camera: R400");
+
+
+            }
+            else if (VehicleName.Name() == "Heavy Motor Vehicle")
+            {
+                Console.WriteLine("Options for Heavy Vehicle:");
+                Console.WriteLine("• Adding Sound System: R1400 ");
+                Console.WriteLine("• Adding Wi-Fi: R1000");
+                Console.WriteLine("• Adding Camera: R600");
+
+
+
+            }
+          
+
+
+        }
+        else {
+            Environment.Exit(0); 
+        }
+        return false;
     }
-
-
+ 
     // Notify technicians about changes
     private void NotifyTechnicians(string message)
     {
@@ -550,7 +585,7 @@ public class SixtyFivePeopleMax : Carrier
                     // Prompt user to choose vehicle type
                     Console.WriteLine("Choose a vehicle type:");
                     Console.WriteLine("1. Motorbike");
-                    Console.WriteLine("2. Lightweight Vehicle");
+                    Console.WriteLine("2. Light Weight Vehicle");
                     Console.WriteLine("3. Heavy Vehicle");
                     Console.Write("Enter your choice (1/2/3):\n ");
                     Console.Write("------------------------------------ \n");
